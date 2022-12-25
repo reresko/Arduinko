@@ -1,0 +1,243 @@
+const int s = 1000;
+/*
+ casC = 20 * s;
+ casOC = 1 * s; 
+ casO = 2 * s;
+ casZ = 14 * s; 
+ casCHC = 4 * s;
+*/
+int AC = 13; //AUTA CERVENA
+int AO = 12; //AUTA ORANZOVA 
+int AZ = 11; //AUTA ZELENA
+int CHC = 10; //CHODCI CERVENA 
+int CHZ = 9; //CHODCI ZELENA
+int buzzer = 14; // pin A0
+
+#define A 2
+#define B 5
+#define C 6
+#define D 8
+#define E 7
+#define F_SEG 4
+#define G 3
+#define CA1 15
+#define CA2 16
+
+const int segments[7] = {A,B,C,D,E,F_SEG,G};
+
+// format 0bGFEDCBA
+const byte numbers[10] = {0b1000000, 0b1111001,
+0b0100100, 0b0110000, 0b0011001, 0b0010010,
+0b0000010, 0b1111000, 0b0000000, 0b0010000};
+byte value = 0;
+
+void setup() {
+    for(int i=9; i<=14; i++){
+        pinMode(i, OUTPUT);
+    }
+    for (int i=0; i<7; i++){
+        pinMode(segments[i], OUTPUT);
+        digitalWrite(segments[i], HIGH);
+    }
+    pinMode(CA1, OUTPUT);
+    digitalWrite(CA1, HIGH);
+    pinMode(CA2, OUTPUT);
+    digitalWrite(CA2, HIGH);
+    Serial.begin(9600);
+}
+
+void loop() {
+    if(Serial.available()){
+        value = Serial.read();
+    }
+    if(value=='x'){
+        sus();
+    }
+    digitalWrite(AC, HIGH); 
+    digitalWrite(CHZ, HIGH);
+    odpocet();
+    zelenaCasC();
+    digitalWrite(CHZ, LOW);
+    digitalWrite(CHC, HIGH); 
+    digitalWrite(AC, HIGH); 
+    cervenaCasCHC();
+    digitalWrite(AO, HIGH); 
+    cervenaCasOC();
+    digitalWrite(AC, LOW); 
+    digitalWrite(AO, LOW); 
+    digitalWrite(AZ, HIGH); 
+    cervenaCasZ();
+    digitalWrite(AZ, LOW); 
+    digitalWrite(AO, HIGH); 
+    cervenaCasO();
+    digitalWrite(AO, LOW);
+    digitalWrite(AC, HIGH); 
+    cervenaCasCHC();
+    digitalWrite(CHC, LOW);
+}
+
+void cervenaCasCHC(){ // delay 4s
+    for(int i=0; i<=4; i++){
+        tone(buzzer, 40);
+        delay(s/2);
+        noTone(buzzer);
+        delay(s/2);
+    }
+}
+
+void cervenaCasOC(){ // delay 1s
+        tone(buzzer, 40);
+        delay(s/2);
+        noTone(buzzer);
+        delay(s/2); 
+}
+
+void cervenaCasZ(){ // delay 14s
+    for(int i=0; i<=14; i++){
+        tone(buzzer, 40);
+        delay(s/2);
+        noTone(buzzer);
+        delay(s/2);
+    }
+}
+
+void cervenaCasO(){ // delay 2s
+    for(int i=0; i<=2; i++){
+        tone(buzzer, 40);
+        delay(s/2);
+        noTone(buzzer);
+        delay(s/2);
+    }
+}
+
+void zelenaCasC(){
+    for(int i=0; i<=100; i++){ // delay 20s
+        tone(buzzer, 60);
+        delay(s/10);
+        noTone(buzzer);
+        delay(s/10);
+    }
+
+}
+
+void odpocet(){
+    for (int digit1 = 0; digit1 < 2; digit1++) {     
+        for (int digit2 = 0; digit2 < 10; digit2++) {
+            unsigned long startTime = millis();
+            for (unsigned long elapsed = 0; elapsed < 1000; elapsed = millis() - startTime) {
+                lightDigit1(numbers[digit1]);
+                delay(5);
+                lightDigit2(numbers[digit2]);
+                delay(5);
+            }
+        }
+    }  
+}
+
+void lightDigit1(byte number){
+  digitalWrite(CA1, LOW);
+  digitalWrite(CA2, HIGH);
+  lightSegments(number);
+}
+
+void lightDigit2(byte number){
+  digitalWrite(CA1, HIGH);
+  digitalWrite(CA2, LOW);
+  lightSegments(number);
+}
+
+void lightSegments(byte number){
+  for (int i=0; i<7; i++){
+    int bit = bitRead(number, i);
+    digitalWrite(segments[i], bit);
+  }
+}
+
+void allOff(){
+  digitalWrite(CA1, HIGH);
+  digitalWrite(CA2, HIGH);
+  for (int i = 0; i < 7; i++){
+    digitalWrite(segments[i], HIGH);
+  }
+}
+
+void sus()
+{
+        tone(buzzer, 1046); 
+        delay(250);
+        tone(buzzer, 1244); 
+        delay(250); 
+        tone(buzzer, 1400); 
+        delay(250); 
+        tone(buzzer, 1510); 
+        delay(250);
+        tone(buzzer, 1400); 
+        delay(250);
+        tone(buzzer, 1244); 
+        delay(250); 
+        tone(buzzer, 1046); 
+        delay(250); 
+        noTone(buzzer); 
+        delay(500); 
+        tone(buzzer, 932); 
+        delay(125);
+        tone(buzzer, 1174); 
+        delay(125); 
+        tone(buzzer, 1046); 
+        delay(250);
+
+        noTone(buzzer); 
+        delay(500); 
+        tone(buzzer, 780); 
+        delay(250); 
+        tone(buzzer, 525); 
+        delay(250); 
+        noTone(buzzer); 
+        delay(250);
+
+        tone(buzzer, 1046); 
+        delay(250);
+        tone(buzzer, 1244); 
+        delay(250); 
+        tone(buzzer, 1400); 
+        delay(250); 
+        tone(buzzer, 1510); 
+        delay(250);
+        tone(buzzer, 1400); 
+        delay(250);
+        tone(buzzer, 1244); 
+        delay(250);
+        tone(buzzer, 1400); 
+        delay(250);
+        noTone(buzzer); 
+        delay(750);
+
+        tone(buzzer, 1510); 
+        delay(125);
+        tone(buzzer, 1400); 
+        delay(125);
+        tone(buzzer, 1244); 
+        delay(125);
+        tone(buzzer, 1510); 
+        delay(125);
+        tone(buzzer, 1400); 
+        delay(125);
+        tone(buzzer, 1244); 
+        delay(125);
+        tone(buzzer, 1510); 
+        delay(125);
+        tone(buzzer, 1400); 
+        delay(125);
+        tone(buzzer, 1244); 
+        delay(125);
+        tone(buzzer, 1510); 
+        delay(125);
+        tone(buzzer, 1400); 
+        delay(125);
+        tone(buzzer, 1244); 
+        delay(125);
+        tone(buzzer, 1510); 
+        delay(125);
+        noTone(buzzer); 
+        delay(500);
+}

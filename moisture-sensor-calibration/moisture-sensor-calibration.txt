@@ -1,0 +1,27 @@
+int sensor = A0;
+int sensorValue;
+int limit = 350;
+
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(13, OUTPUT);
+}
+
+void loop()
+{
+    sensorValue = analogRead(sensor);
+    Serial.println("vlhkost pudy:");
+    Serial.println(sensorValue);
+
+    if(sensorValue>limit)
+    {
+        digitalWrite(13, HIGH);
+        tone(13, 900, 2000);
+    }
+    else
+    {
+        digitalWrite(13, LOW);
+    }
+    delay(1800000);
+}

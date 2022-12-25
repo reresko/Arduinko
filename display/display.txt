@@ -1,0 +1,134 @@
+
+int prava = 2;
+int leva = 3;
+int segD = 4;
+int segE = 5;
+int segC = 6;
+int segB = 7;
+int segF = 8;
+int segA = 9;
+int segH = 10;
+int segG = 11;
+
+
+void setup(){
+    for (int a = 2; a <=11; a++){
+        pinMode(a, OUTPUT);
+        digitalWrite(a, HIGH);
+    }
+    digitalWrite(leva, LOW);
+
+    reset();
+    delay(500);
+    n0();
+    delay(500);
+    n1();
+    delay(500);
+    n2();
+    delay(500);
+    n3();
+    delay(500);
+    n4();
+    delay(500);
+    n5();
+    delay(500);
+    n6();
+    delay(500);
+    n7();
+    delay(500);
+    n8();
+    delay(500);
+    n9();
+
+}
+
+void loop(){
+
+}
+
+void reset(){
+    for (int a = 3; a<=11; a++){
+        digitalWrite(a, HIGH);
+    }
+    digitalWrite(leva, LOW);
+}
+
+void n0(){
+    reset();
+    digitalWrite(segA, LOW);
+    digitalWrite(segB, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segD, LOW);
+    digitalWrite(segE, LOW);
+    digitalWrite(segF, LOW);
+}
+
+void n1(){
+    reset();
+    digitalWrite(segB, LOW);
+    digitalWrite(segC, LOW);
+}
+
+void n2(){
+    reset();
+    digitalWrite(segA, LOW);
+    digitalWrite(segB, LOW);
+    digitalWrite(segG, LOW);
+    digitalWrite(segE, LOW);
+    digitalWrite(segD, LOW);
+}
+void n3(){
+    reset();
+    digitalWrite(segA, LOW);
+    digitalWrite(segB, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segD, LOW);
+    digitalWrite(segG, LOW);
+}
+void n4(){
+    reset();
+    digitalWrite(segB, LOW);
+    digitalWrite(segF, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segG, LOW);
+}
+void n5(){
+    reset();
+    digitalWrite(segA, LOW);
+    digitalWrite(segF, LOW);
+    digitalWrite(segG, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segD, LOW);
+}
+void n6(){
+    reset();
+    digitalWrite(segA, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segD, LOW);
+    digitalWrite(segE, LOW);
+    digitalWrite(segF, LOW);
+    digitalWrite(segG, LOW);
+}
+void n7(){
+    reset();
+    digitalWrite(segA, LOW);
+    digitalWrite(segB, LOW);
+    digitalWrite(segC, LOW);
+}
+void n8(){
+    reset();
+    for(int a = 4; a <=9; a++){
+        digitalWrite(a, LOW);
+    }
+    digitalWrite(segG, LOW);
+}
+void n9(){
+    reset();
+    digitalWrite(segA, LOW);
+    digitalWrite(segB, LOW);
+    digitalWrite(segC, LOW);
+    digitalWrite(segD, LOW);
+    digitalWrite(segF, LOW);
+    digitalWrite(segG, LOW);
+}
+
