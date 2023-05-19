@@ -45,9 +45,9 @@ void tecka()
 
 void carka()
 {
-    tone(buzz, 1000, casovaJednotka *3);
+    tone(buzz, 1000, casovaJednotka *4);
     digitalWrite(led, HIGH);
-    delay(casovaJednotka * 3);
+    delay(casovaJednotka * 4);
     digitalWrite(led, LOW);
     delay(casovaJednotka * 4);
 }
