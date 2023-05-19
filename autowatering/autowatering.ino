@@ -22,12 +22,12 @@ void setup()
 {
     for (int i=2; i<=4; i++)
     {
-      pinMode(i, OUTPUT);
-      digitalWrite(i, HIGH);
+        pinMode(i, OUTPUT);
+        digitalWrite(i, HIGH);
     }
     for (int i=A0; i<=A2; i++)
     {
-      pinMode(i, INPUT);
+        pinMode(i, INPUT);
     }
     pinMode(buzz, OUTPUT);
     Serial.begin(9600);
